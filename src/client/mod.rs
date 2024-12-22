@@ -18,19 +18,19 @@ use tokio::{
 };
 
 const ASCII_ART: &str = r#"
-▄████████    ▄████████ ███    █▄   ▄██████▄   ▄█       ███  v1.0
-███    ███   ███    ███ ███    ███ ███    ███ ███   ▀█████████▄
-███    █▀    ███    ███ ███    ███ ███    ███ ███▌     ▀███▀▀██
-▄███▄▄▄      ▄███▄▄▄▄██▀ ███    ███ ███    ███ ███▌      ███   ▀
-▀▀███▀▀▀     ▀▀███▀▀▀▀▀   ███    ███ ███    ███ ███▌      ███
-███    █▄  ▀███████████ ███    ███ ███    ███ ███       ███
-███    ███   ███    ███ ███    ███ ███    ███ ███       ███
-██████████   ███    ███ ████████▀   ▀██████▀  █▀       ▄████▀
-      ▀▀▀    ███ by DALM†™
+▄████████    ▄████████  ███     █▄   ▄██████▄       ███  v1.0
+███    ███   ███    ███ ███    ███ ███    ███  ▀█████████▄
+███    █▀    ███    ███ ███    ███ ███    ███     ▀███▀▀██
+▄███▄▄▄      ▄███▄▄▄▄██▀███    ███ ███    ███      ███   ▀
+▀▀███▀▀▀     ▀▀███▀▀▀▀▀ ███    ███ ███    ███     ████▀
+███    █▄  ▀███████████ ███    ███ ███    ███      ███
+███    ███   ███    ███ ███    ███ ███    ███      ███
+██████████   ███    ███ ████████▀   ▀██████▀      ▄████▀
+    ▀▀▀    ███ by DALM†™
 "#;
 
 pub async fn run_client() {
-  let client = match TcpStream::connect("127.0.0.1:3630").await {
+  let client = match TcpStream::connect("127.0.0.1:4000").await {
       Ok(c) => c,
       Err(e) => {
           eprintln!("Failed to connect to server: {}", e);
@@ -86,12 +86,17 @@ pub async fn run_client() {
               let chunks = Layout::default()
                   .direction(Direction::Vertical)
                   .constraints(
-                      [Constraint::Percentage(70), Constraint::Percentage(10), Constraint::Percentage(20)]
-                          .as_ref(),
+                      [
+                          Constraint::Percentage(70),
+                          Constraint::Percentage(10),
+                          Constraint::Percentage(20),
+                      ]
+                      .as_ref(),
                   )
                   .split(f.size());
 
-              let ascii_art = Paragraph::new(ASCII_ART).block(Block::default().borders(Borders::ALL));
+              let ascii_art =
+                  Paragraph::new(ASCII_ART).block(Block::default().borders(Borders::ALL));
 
               let messages_widget = Paragraph::new(messages_to_display.join("\n"))
                   .block(Block::default().borders(Borders::ALL).title("Messages"));
