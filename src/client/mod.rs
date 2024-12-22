@@ -13,7 +13,6 @@ use tui::{
   Terminal,
 };
 
-// Log file
 const LOG_FILE: &str = "client_debug.log";
 const ASCII_ART: &str = r#"
 ▄████████    ▄████████  ███     █▄   ▄██████▄       ███  v1.0
@@ -48,7 +47,7 @@ struct UIState {
 }
 
 pub async fn run_client() -> Result<(), Box<dyn std::error::Error>> {
-  log_debug("Starting client application")?;
+  log_debug("Hekhat Bruof Starting")?;
 
   enable_raw_mode()?;
   let mut stdout = io::stdout();
